@@ -1,0 +1,65 @@
+credentials :"include" specifies that you send the cookies from frontend to backend
+This you need to do when you are in cross origin
+But you need not mention this if you are using vite proxy as they will belong to same domain and automatically send cookies.
+
+
+docker ps
+docker logs <container-name>
+vite-preview default port is 4173
+You need --host 0.0.0.0 because the client and backend are eaching running on their own containers and are communicating through service
+but if you want to see in the host system u have to set host 0.0.0.0 that means it wont listen only to localhost anymore and evey incoming connections with same port.
+The above is the case for Vite. whereas for backend they always listen on 0.0.0.0, thats why if you do localhost:3000 inside the host system you will get the backend page/
+
+If you add --host to vite run dev/start, then u can open your website from phone too(use ur local ip address:port).
+
+
+Jest:
+npm install --save-dev jest @testing-library/react @testing-library/jest-dom
+minikube start --extra-config=apiserver.authorization-mode=RBAC
+
+minikue didnt work, shifted to k3s
+the config file is diff for k3s,make sure to use appropriate export, have to give 644 permission for k3s config file
+
+
+NodePort makes it such that I can access the website from Windows too. <Zorrin_VM_IP>:<NODE_PORT>. http://192.168.0.111:30000/
+For getting Zorrin_VM_IP: run (ip a) and find the enp0s3.
+
+kubectl get pods
+kubectl logs <pod-name>
+
+kubectl get hpa
+
+sudo chmod 644 /etc/rancher/k3s/k3s.yaml
+
+
+restart metrics-server : kubectl rollout restart deployment metrics-server -n kube-system
+
+kubectl describe hpa backend-hpa
+VAULT_PASS: vault@123
+
+~/prometheus-2.48.0.linux-amd64$ ./prometheus --config.file=prometheus.yml
+
+Grafana:
+http://localhost:3000/dashboards
+
+Metrics:
+http://localhost:3100/metrics
+
+Prometheus:
+http://localhost:9090
+
+stored in /desktop/spe in zorrinOs
+kubectl apply -f promtail-config.yaml
+kubectl apply -f promtail.yaml
+
+
+// sh 'docker rmi $(docker images --filter "dangling=true" --filter "reference=bambo0st/backend:latest" -q)||true'
+
+
+kubectl get secret loki-grafana -n monitoring -o jsonpath="{.data.admin-password}" | base64 --decode
+
+kubectl port-forward --namespace monitoring svc/loki-prometheus-server 9090:80
+
+kubectl port-forward --namespace monitoring service/loki-grafana 3000:80
+
+kubectl port-forward svc/loki -n monitoring 3100:3100
